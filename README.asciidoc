@@ -6,4 +6,4 @@ experimenting with locallly run containerized LLM
 * [ ] Steamdeck (podman?)
 * [ ] pinebook pro (docker)
 * [ ] raspi (docker)
-* [X] Macbook pro
+* [x] Macbook pro
