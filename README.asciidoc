@@ -1,0 +1,9 @@
+= llama-docker
+
+experimenting with locallly run containerized LLM
+
+.Target:
+* [ ] Steamdeck (podman?)
+* [ ] pinebook pro (docker)
+* [ ] raspi (docker)
+* [X] Macbook pro
