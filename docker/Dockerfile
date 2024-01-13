@@ -13,3 +13,4 @@ RUN chmod +x llava-v1.5-7b-q4.llamafile
 COPY . .
 
 CMD ["/data/ENTRYPOINT.sh"]
+

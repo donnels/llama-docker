@@ -3,7 +3,7 @@
 experimenting with locallly run containerized LLM
 
 .Target:
-* [ ] Steamdeck (podman?)
+* [x] Steamdeck (podman)
 * [ ] pinebook pro (docker)
 * [ ] raspi (docker)
 * [x] Macbook pro (docker/colima)
