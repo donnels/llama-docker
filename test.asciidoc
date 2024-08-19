@@ -1,4 +1,4 @@
-= test
+= integrating llm rag and ides
 
 .install ollama
 ----
