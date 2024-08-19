@@ -346,6 +346,6 @@ You can enable the LLM to display the probabilities so that you can view at whic
 Into the chatbot in the container and nowhere else. When the container is stopped anything you have entered is lost (in the sense of has evaporated).
 
 === Can I test things here?
-Yes. You can try out things like prompt engineering and you can try to get the LLM to answer questions it's been told not to. There may be plenty in the training data that is probably not that nice, so here also beware. And the environment does not hold a grudge so you can try out many things without 
+Yes. You can try out things like prompt engineering and you can try to get the LLM to answer questions it's been told not to. There may be plenty in the training data that is probably not that nice, so here also beware. And the environment does not hold a grudge so you can try out many things without being banned for violating the terms and conditions of a provider.
 
 
