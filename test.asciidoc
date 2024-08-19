@@ -1,0 +1,94 @@
+= test
+
+.install ollama
+----
+curl -fsSL https://ollama.com/install.sh | sh
+----
+
+.model
+* link:https://huggingface.co/meta-llama/Llama-2-7b[]
+
+OR
+
+.model
+* link:https://huggingface.co/docs/transformers/en/model_doc/mistral[]
+
+.now run it
+----
+ollama run mistral
+----
+
+.general syntax
+----
+ollama run model-name:model-tag
+----
+
+.eg
+----
+ollama run llama2:7b-chat-fp16
+----
+    
+At 4-bit quantization the model needs half a gigabyte of memory for every 1 billion parameters.
+
+FP16 needs 2GB of memory per billion parameters, which in this case works out to just over 14GB.
+
+=== ollama commands
+
+            
+                    
+                                                  .list installed models
+----
+ollama list
+----
+
+.remove a model
+----
+ollama rm model-name:model-tag
+----
+
+
+.Pull or update an existing model
+----
+ollama pull model-name:model-tag
+----
+
+.Ollama help
+---- 
+ollama --help
+----
+
+=== setup in IDE with 'continue'
+
+.using local models
+Llama 3 8B:: A general-purpose LLM from Meta, which is used to comment, optimize, and/or refactor code. You can learn more about Llama 3 in our launch-day coverage here.
+Nomic-embed-text:: An embedding model used to index your codebase locally enabling you to reference your codebase when prompting the integrated chatbot.
+Starcoder2:3B:: This is a code generation model by BigCode that powers Continue's tab-autocomplete functionality.
+
+.manual pull if required
+----
+ollama pull llama3
+ollama pull nomic-embed-text
+ollama pull starcoder2:3b
+----
+
+modify '.continue' to opt oit of statistics
+
+=== using
+
+Command-I
+
+=== RAG
+
+.run webui
+----
+docker run -d --network=host -v open-webui:/app/backend/data -e OLLAMA_BASE_URL=http://127.0.0.1:11434 --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+----
+
+login to exposed port
+account is given admon rights
+
+change target from http://127.0.0.1:11434 to llama container port
+
+load docs
+open "Workspace" tab and open "Documents."                 
+load pdfs et al

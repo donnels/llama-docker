@@ -48,7 +48,7 @@ After having pulled the repository one can `build` the image (which is `run` lat
 .Docker Build
 [source,bash]
 ----
-cd docker
+cd docker-llava
 docker build -t llama .
 ----
 
