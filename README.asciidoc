@@ -6,8 +6,11 @@ experimenting with locallly run containerized LLM
 == Targets
 .Target:
 * [x] Steamdeck (podman)
+** Works well
 * [ ] pinebook pro (docker)
+** Not really a good fit
 * [ ] raspi (docker)
+** Pending test
 * [x] Macbook pro (docker/colima)
 
 == How to
@@ -23,7 +26,7 @@ This section is a quick run down of how to:
 In general it's easy enough to build and run a docker container and all it needs are:
 
 * Docker
-** OR an equivalent like podman or colima
+** OR an equivalent like podman or colima (MAC only via brew)
 * git 
 ** OR you can pull a ZIP of the repo from the website directly
 
@@ -73,17 +76,40 @@ docker build -t llama .
 The above was from a cached build and is in contrast to a fresh build.
 A fresh build, the first time, will take a while longer depending on the speed of the internet connexion as the model is a few Gigabytes. A low speed Internet connexion may take approximately an hour (12Mbit).
 
+.Checking on the size of the image
+[source,bash]
+----
+docker image ls         
+----
+
+.Output
+----
+
+----
+
+.Checking how the image is built up
+[source,bash]
+----
+docker history llama  
+----
+
+.Output
+----
+  
+----
+
 === Running the Container
 A container is just an instantiation of an image.
 
 .Docker Run
 [source,bash]
 ----
-docker run --name llama -p8080:8080 -it llama
+docker run --rm --name llama -p8080:8080 -it llama
 ----
 
 .The above command:
 * runs the container with `run`
+* `--rm` removes the container after it's stopped.
 * gives the container, from the image `llama`, a name `--name llama`.
 * exposes the containers ports on the local system with `-p8080:8080`.
 * makes the container connect to the CLI it was started on `-it` so that a `CTRL-c` can later stop it and you can see what it's up to while it's running.
@@ -288,6 +314,38 @@ Proto RefCnt Flags       Type       State         I-Node   Path
 
 With an active query running the system shows clearly that it's making up the answers all on its own and isn't running off to the Internet to ask some service.
 
+.Looking at processes
+[source,bash]
+----
+root@098c4d422da8:/data# ps auxf
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root          31  0.0  0.1   4188  2304 pts/1    Ss   10:48   0:00 bash
+root          57  0.0  0.2   8088  4096 pts/1    R+   12:29   0:00  \_ ps auxf
+root           1  0.0  0.0   3924   384 pts/0    Ss+  10:39   0:00 bash /data/ENTRYPOINT.sh
+root           7  2.5 72.7 9629008 1455532 pts/0 Sl+  10:39   2:47 /root/.ape-1.10 /data/llava-v1.5-7b-q4.llamafile --host 0.0.0.0
+----
 
+Clearly showing that there is just the model running as a single entity.
+
+== Questions and Answers
+This section just goes into some of the questions that may arise when you start using an LLM.
+
+=== What does an LLM do?
+It has been pre trained and has generated the "model". The model then guesses what comes next. It's more or less a statistical model which predicts the next word... over and over thereby either filling in the blanks or rambling on. It does that based on the context you give it so that the more information you give it the closer it get's to something you might consider useful. And to be clear: It knows nothing and cannot think per se.
+
+=== Where does it get the answers from?
+It generates them based on the input. The less it "knows" about a topic the more prone it is to making up something outrageous (hallucination). But to be honest all answers are made up and that's why they should not be trusted. It's just that some of the made up answers are spot on or close enough as they are probable and the less it knows the more wildly it stabs in the dark. And it does stab in the dark.
+If you enable the probability display it will show you, for each token/word, how probable it "thinks" it is.
+
+=== Why are the answers different each time I ask the same question?
+The `temperature` setting introduces some randomness (or creativity). If the temperature is set high the LLM can drift into the realms of the unlikely. The higher the temperature the more creative the answers can get.
+This can be good and also bad. Beware.
+You can enable the LLM to display the probabilities so that you can view at which points in the answer it deviated from a zero temperature and how.
+
+=== Where does the data that I enter go?
+Into the chatbot in the container and nowhere else. When the container is stopped anything you have entered is lost (in the sense of has evaporated).
+
+=== Can I test things here?
+Yes. You can try out things like prompt engineering and you can try to get the LLM to answer questions it's been told not to. There may be plenty in the training data that is probably not that nice, so here also beware. And the environment does not hold a grudge so you can try out many things without 
 
 
