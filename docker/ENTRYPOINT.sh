@@ -1,3 +1,10 @@
 #!/usr/bin/env bash
 
-/data/llava-v1.5-7b-q4.llamafile --host 0.0.0.0 --port 8080 --nobrowser
+#get the model name from the Dockerfile ENV
+llamaFile="$(basename $modelURL)"
+
+#set the startup Opts
+netOPTS="--host 0.0.0.0 --port 8080"
+otherOPTS="--nobrowser"
+
+/data/${llamaFile} $netOPTS $otherOPTS
