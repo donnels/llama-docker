@@ -1,4 +1,5 @@
 = integrating llm rag and ides
+:toc: right
 
 .install ollama
 ----
